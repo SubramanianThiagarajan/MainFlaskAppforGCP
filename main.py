@@ -12,23 +12,23 @@ def set_response_headers(response):
     response.headers['Expires'] = '0'
     return response
 
-@app.route('/', methods=['GET'])
-def say_hello():
+@app.route('/privacy', methods=['GET'])
+def show_policy():
     user_email = request.headers.get('X-Goog-Authenticated-User-Email')
     user_id = request.headers.get('X-Goog-Authenticated-User-ID')
 
     verified_email, verified_id = user()
 
-    page = render_template('index.html',
+    page = render_template('privacy.html',
         email=user_email,
         id=user_id,
         verified_email=verified_email,
         verified_id=verified_id)
     return page
 
-@app.route('/privacy', methods=['GET'])
-def show_policy():
-    page = render_template('privacy.html')
+@app.route('/', methods=['GET'])
+def say_hello():
+    page = render_template('index.html')
     return page
 
 
